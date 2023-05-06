@@ -1,16 +1,15 @@
-import * as S from './styles'
+import { useSelector } from 'react-redux'
 
-import { Game } from '../../App'
+import * as S from './styles'
 
 import cesta from '../../assets/cesta.png'
 import { paraReal } from '../Produto'
+import { selectCart } from '../../store/cart/cart.selector'
 
-type Props = {
-  itensNoCarrinho: Game[]
-}
+const Header = () => {
+  const cart = useSelector(selectCart)
 
-const Header = ({ itensNoCarrinho }: Props) => {
-  const valorTotal = itensNoCarrinho.reduce((acc, item) => {
+  const valorTotal = cart.reduce((acc, item) => {
     acc += item.preco
     return acc
   }, 0)
@@ -21,7 +20,7 @@ const Header = ({ itensNoCarrinho }: Props) => {
       <div>
         <img src={cesta} />
         <span>
-          {itensNoCarrinho.length} itens, valor total: {paraReal(valorTotal)}
+          {cart.length} itens, valor total: {paraReal(valorTotal)}
         </span>
       </div>
     </S.Header>
